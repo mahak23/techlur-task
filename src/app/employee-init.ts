@@ -6,7 +6,7 @@ export class Init {
       localStorage.getItem("employees") == undefined
     ) {
       console.log("No employees Found... Creating...");
-      let emps = [
+      let employees = [
         {
           id: 1,
           firstName: "Kiran",
@@ -37,7 +37,7 @@ export class Init {
         },
       ];
 
-      localStorage.setItem("employees", JSON.stringify(emps));
+      localStorage.setItem("employees", JSON.stringify(employees));
       return;
     } else {
       console.log("Found employees...");

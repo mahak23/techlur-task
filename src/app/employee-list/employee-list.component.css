@@ -14,8 +14,11 @@ thead {
   padding: 20px;
 }
 
-button {
-  margin-left: 14px;
+.btnEdit {
+  margin-left: 3px;
+}
+.btnRemove {
+  margin-left: 4px;
 }
 .align-right {
   float: right;

@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { EmployeeService } from "../employee.service";
 
 @Component({
   selector: "app-employee-list",
@@ -7,49 +6,62 @@ import { EmployeeService } from "../employee.service";
   styleUrls: ["./employee-list.component.css"],
 })
 export class EmployeeListComponent implements OnInit {
-  emps;
-
-  dynamicArray: any = {};
+  employees = [];
+  editInline = false;
+  editIndex = -1;
+  employee: any = {};
   showAddRow = false;
-  constructor(private empService: EmployeeService) {}
 
   ngOnInit() {
-    this.emps = this.empService.getEmployees();
+    this.getData();
   }
-  addRowFirst() {
+
+  addRowForm() {
+    this.employee = {};
     this.showAddRow = true;
   }
 
   addRow() {
-    console.log(this.dynamicArray);
-    this.emps.push(this.dynamicArray);
+    this.employees.unshift({
+      firstName: this.employee.firstName,
+      lastName: this.employee.lastName,
+      guest: this.employee.guest,
+      checkIn: this.employee.checkIn,
+    });
+    this.cancel();
+    this.setData();
+  }
+
+  showEditForm(emp, index) {
+    this.showAddRow = false;
+    this.editIndex = index;
+    this.editInline = true;
+    this.employee = Object.assign(this.employee, emp);
+  }
+
+  saveRecord(index) {
+    this.employees[index] = this.employee;
+    this.setData();
+    this.cancel();
+  }
+
+  cancel() {
+    this.editIndex = -1;
+    this.editInline = false;
+    this.employee = {};
     this.showAddRow = false;
   }
-  editEmployee(emp, index) {
-    console.log(emp);
-    this.dynamicArray = emp;
-  }
-  editRecord(index) {
-    this.emps[index] = this.dynamicArray;
-  }
-  deleteEmployee(id) {
-    for (let i = 0; i < this.emps.length; i++) {
-      if (this.emps[i].id == id) {
-        this.emps.splice(i, 1);
-      }
-    }
 
-    // this.empService.deleteEmployee(id);
+  deleteEmployee(index) {
+    this.employees.splice(index, 1);
+    this.setData();
   }
 
-  // let newEmployee = {
-  //     id:uuid(),
-  //     firstName: this.form.value.firstName,
-  //     lastName: this.form.value.lastName,
-  //     languages: this.form.value.languages,
+  getData() {
+    this.employees = JSON.parse(localStorage.getItem("employees"));
+  }
 
-  //   }
-  //   this.emps.push(newEmployee);
-  //   this.empService.addEmployee(newEmployee);
-  //   this.router.navigate(['employee-list']);
+  setData() {
+    localStorage.setItem("employees", JSON.stringify(this.employees));
+  }
 }

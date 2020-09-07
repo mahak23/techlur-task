@@ -4,7 +4,7 @@
   </div>
   <div class="sub-section">
     <h2 id="header">Wait List</h2>
-    <a class="btn btn-success align-right" (click)="addRowFirst()">
+    <a class="btn btn-success align-right" (click)="addRowForm()">
       Add New List</a
     >
   </div>
@@ -20,79 +20,113 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let emp of emps; let index">
-          <td>
-            {{ emp.firstName }}<br /><input
-              [(ngModel)]="dynamicArray.firstName"
-              class="form-control"
-              type="text"
-            />
-          </td>
-          <td>
-            {{ emp.lastName }}<br /><input
-              [(ngModel)]="dynamicArray.lastName"
-              class="form-control"
-              type="text"
-            />
-          </td>
-          <td>
-            {{ emp.guest }}<br /><input
-              [(ngModel)]="dynamicArray.guest"
-              class="form-control"
-              type="number"
-            />
-          </td>
-          <td>
-            {{ emp.checkIn }}<br /><input
-              [(ngModel)]="dynamicArray.checkIn"
-              class="form-control"
-              type="time"
-            />
-          </td>
-          <td>
-            <a (click)="editEmployee(emp)" class="btn btn-success">Edit</a>
-            <button (click)="deleteEmployee(emp.id)" class="btn btn-danger">
-              Remove
-            </button>
-          </td>
-          <td>
-            <a (click)="editRecord(ndex)" class="btn btn-success">save</a>
-            <button (click)="deleteEmployee(emp.id)" class="btn btn-danger">
-              cancel
-            </button>
-          </td>
-        </tr>
         <tr *ngIf="showAddRow">
           <td>
             <input
-              [(ngModel)]="dynamicArray.firstName"
+              [(ngModel)]="employee.firstName"
               class="form-control"
               type="text"
             />
           </td>
           <td>
             <input
-              [(ngModel)]="dynamicArray.lastName"
+              [(ngModel)]="employee.lastName"
               class="form-control"
               type="text"
             />
           </td>
           <td>
             <input
-              [(ngModel)]="dynamicArray.guest"
+              [(ngModel)]="employee.guest"
               class="form-control"
               type="number"
             />
           </td>
           <td>
             <input
-              [(ngModel)]="dynamicArray.checkIn"
+              [(ngModel)]="employee.checkIn"
               class="form-control"
               type="time"
             />
           </td>
           <td>
             <button class="btn btn-danger" (click)="addRow(i)">Add</button>
+            <button (click)="cancel()" class="btn btn-danger">Cancel</button>
+          </td>
+        </tr>
+        <tr *ngFor="let emp of employees; let i = index">
+          <td>
+            <ng-container
+              *ngIf="!(editInline && editIndex == i); else editFirstName"
+            >
+              {{ emp.firstName }} <br
+            /></ng-container>
+
+            <ng-template #editFirstName>
+              <input
+                class="form-control"
+                [(ngModel)]="employee.firstName"
+                type="text"
+              />
+            </ng-template>
+          </td>
+          <td>
+            <ng-container
+              *ngIf="!(editInline && editIndex == i); else editLastName"
+            >
+              {{ emp.lastName }}<br
+            /></ng-container>
+            <ng-template #editLastName>
+              <input
+                class="form-control"
+                [(ngModel)]="employee.lastName"
+                type="text"
+              />
+            </ng-template>
+          </td>
+          <td>
+            <ng-container
+              *ngIf="!(editInline && editIndex == i); else editGuest"
+            >
+              {{ emp.guest }}</ng-container
+            ><br />
+            <ng-template #editGuest>
+              <input
+                class="form-control"
+                [(ngModel)]="employee.guest"
+                type="number"
+              />
+            </ng-template>
+          </td>
+          <td>
+            <ng-container
+              *ngIf="!(editInline && editIndex == i); else editChevkIn"
+            >
+              {{ emp.checkIn }}</ng-container
+            >
+            <ng-template #editChevkIn
+              ><input
+                class="form-control"
+                [(ngModel)]="employee.checkIn"
+                type="time"
+            /></ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="!(editInline && editIndex == i)">
+              <a (click)="showEditForm(emp, i)" class="btn btn-success btnEdit"
+                >Edit</a
+              >
+              <button
+                (click)="deleteEmployee(i)"
+                class="btn btn-danger btnRemove"
+              >
+                Remove
+              </button>
+            </ng-container>
+            <ng-container *ngIf="editInline && editIndex == i">
+              <a (click)="saveRecord(i)" class="btn btn-success">Save</a>
+              <button (click)="cancel()" class="btn btn-danger">Cancel</button>
+            </ng-container>
           </td>
         </tr>
       </tbody>
