@@ -1,0 +1,7 @@
+body {
+  background-image: url("../assets//img/body-bg.jpg");
+  height: 930px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

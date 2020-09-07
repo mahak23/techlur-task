@@ -1,0 +1,101 @@
+<div class="card main-section">
+  <div id="logo-section">
+    <img src="../../assets/img/brand.jpg" alt="Logo" id="logo-img" />
+  </div>
+  <div class="sub-section">
+    <h2 id="header">Wait List</h2>
+    <a class="btn btn-success align-right" (click)="addRowFirst()">
+      Add New List</a
+    >
+  </div>
+  <div class="section table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Guests</th>
+          <th>Check In</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of emps; let index">
+          <td>
+            {{ emp.firstName }}<br /><input
+              [(ngModel)]="dynamicArray.firstName"
+              class="form-control"
+              type="text"
+            />
+          </td>
+          <td>
+            {{ emp.lastName }}<br /><input
+              [(ngModel)]="dynamicArray.lastName"
+              class="form-control"
+              type="text"
+            />
+          </td>
+          <td>
+            {{ emp.guest }}<br /><input
+              [(ngModel)]="dynamicArray.guest"
+              class="form-control"
+              type="number"
+            />
+          </td>
+          <td>
+            {{ emp.checkIn }}<br /><input
+              [(ngModel)]="dynamicArray.checkIn"
+              class="form-control"
+              type="time"
+            />
+          </td>
+          <td>
+            <a (click)="editEmployee(emp)" class="btn btn-success">Edit</a>
+            <button (click)="deleteEmployee(emp.id)" class="btn btn-danger">
+              Remove
+            </button>
+          </td>
+          <td>
+            <a (click)="editRecord(ndex)" class="btn btn-success">save</a>
+            <button (click)="deleteEmployee(emp.id)" class="btn btn-danger">
+              cancel
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="showAddRow">
+          <td>
+            <input
+              [(ngModel)]="dynamicArray.firstName"
+              class="form-control"
+              type="text"
+            />
+          </td>
+          <td>
+            <input
+              [(ngModel)]="dynamicArray.lastName"
+              class="form-control"
+              type="text"
+            />
+          </td>
+          <td>
+            <input
+              [(ngModel)]="dynamicArray.guest"
+              class="form-control"
+              type="number"
+            />
+          </td>
+          <td>
+            <input
+              [(ngModel)]="dynamicArray.checkIn"
+              class="form-control"
+              type="time"
+            />
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="addRow(i)">Add</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
