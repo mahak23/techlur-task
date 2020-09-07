@@ -14,6 +14,9 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+    if (!this.employees) {
+      this.employees = [];
+    }
   }
 
   addRowForm() {

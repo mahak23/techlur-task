@@ -4,9 +4,9 @@
   </div>
   <div class="sub-section">
     <h2 id="header">Wait List</h2>
-    <a class="btn btn-success align-right" (click)="addRowForm()">
-      Add New List</a
-    >
+    <button class="btn btn-success align-right" (click)="addRowForm()">
+      Add New List
+    </button>
   </div>
   <div class="section table-responsive">
     <table class="table table-striped">
@@ -113,9 +113,12 @@
           </td>
           <td>
             <ng-container *ngIf="!(editInline && editIndex == i)">
-              <a (click)="showEditForm(emp, i)" class="btn btn-success btnEdit"
-                >Edit</a
+              <button
+                (click)="showEditForm(emp, i)"
+                class="btn btn-success btnEdit"
               >
+                Edit
+              </button>
               <button
                 (click)="deleteEmployee(i)"
                 class="btn btn-danger btnRemove"
@@ -124,7 +127,9 @@
               </button>
             </ng-container>
             <ng-container *ngIf="editInline && editIndex == i">
-              <a (click)="saveRecord(i)" class="btn btn-success">Save</a>
+              <button (click)="saveRecord(i)" class="btn btn-success">
+                Save
+              </button>
               <button (click)="cancel()" class="btn btn-danger">Cancel</button>
             </ng-container>
           </td>
